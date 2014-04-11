@@ -14,7 +14,7 @@ public class Boerse3 {
     
     public static void main(String[] args) {
         
-        System.out.println("hallo");
+        
         
         //Anlegen der Instanzen die genutzt werden:
           AccountManager AM = new AccountManagerImpl();
