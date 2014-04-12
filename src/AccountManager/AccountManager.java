@@ -1,5 +1,6 @@
 package AccountManager;
 
+import Bank.StockPriceInfo;
 import Exceptions.ShareException;
 
 public interface AccountManager {
@@ -11,7 +12,7 @@ public interface AccountManager {
     void saleShare(String x,String aktienName,long verkaufswert,int verkaufsanzahl);
     
     //Aktien verkaufen
-    void buyShare(String x, String akName, int Anzahl);
+    void buyShare(String x, String akName, int Anzahl, StockPriceInfo SPI);
     
     //Abfragen des Depots
     String getDepotData(String Name);
