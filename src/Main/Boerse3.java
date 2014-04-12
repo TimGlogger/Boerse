@@ -8,6 +8,7 @@ import AccountManager.AccountManagerImpl;
 import AccountManager.AccountManager;
 import Bank.StockPriceInfo;
 import Bank.StockPriceProvider;
+import Gui.StockPriceViewer;
 
 public class Boerse3 {
 
@@ -16,6 +17,10 @@ public class Boerse3 {
         //Anlegen der Instanzen die genutzt werden:
         AccountManager AM = new AccountManagerImpl();
         StockPriceInfo SPI = new StockPriceProvider();
+        //Ausgabefenster und Timerdemo:
+        StockPriceViewer viewerDemo = new StockPriceViewer();
+        viewerDemo.start();
+
         
         //Aufruf der Ausgabe in Schleife "while": Ausgabe der Aktien und der Spieler:
 

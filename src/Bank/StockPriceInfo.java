@@ -23,7 +23,7 @@ public interface StockPriceInfo {
     public long getCurrentShareRate(String ShareName);
    
     //Starten des Updates aller Aktien der Spieler (UpdateMethdoe)
-    public void startUpdate();   
+    public void startUpdate(String bank);   
     
     //Aktie im Array Suchen
     public Share searchShare(String lookafter);

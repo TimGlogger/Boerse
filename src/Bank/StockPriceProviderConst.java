@@ -1,7 +1,12 @@
 package Bank;
 
-//Diese Bank setzt alles auf den Anfangszustand zurück
+//Diese Bank setzt alles auf den Anfangszustand zurück:
 
-public class StockPriceProviderConst {
+public class StockPriceProviderConst extends StockPriceProvider  {
+    
+    @Override
+    public long changePrice(){
+    
+    }
     
 }

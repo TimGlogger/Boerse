@@ -5,10 +5,17 @@ package Bank;
 
 import Core.*;
 import java.util.Arrays;
+import java.util.Timer;
+import Exceptions.StockPriceProviderException;
+
+
 
 public class StockPriceProvider implements StockPriceInfo{
 
     private Share[] bankAktien = null;
+    private static final int TICK_PERIOD = 1000;
+    private Timer ticker;
+    
     
     public StockPriceProvider(){}
 
@@ -85,18 +92,33 @@ public class StockPriceProvider implements StockPriceInfo{
     }
     
     //Einzele Aktie Updaten:
-    //Wird im Interface nicht angezeigt
-    protected void updateShareRate(Share share) {
+    
+    protected void updateShareRate(Share share, long newPrice) {
+        
     }
 
-    //Alle Aktien Updaten:
-    //Wird im Interface nicht angezeigt
-    protected void updateShareRates() {
+    //Alle Aktien Updaten: Schleife durch das Array(Wird nicht im Interface angezeigt)    
+    protected void updateShareRates(String bank)throws StockPriceProviderException {
+        int r = 0;
+            while (bankAktien[r] != null) {
+                if(bank.equals("Const")){}
+                if(bank.equals("Random")){}
+                else{throw new StockPriceProviderException("Keine Gültige Bank angegeben. Bitte geben Sie ein an.");}
+                r++;
+            }
+
+            
     }
 
     //Starten des Updates aller Aktien der Spieler (UpdateMethdoe)
     @Override
-    public void startUpdate() {
+    public void startUpdate(String bank) { 
+       try{
+        updateShareRates(bank);}
+       catch(StockPriceProviderException r){
+       System.out.println("Fehler beim Versuch die Aktien zu Updaten."+ r.toString());
+       }
+        //2.Update die Spieler.
     }
 
     //Hat ein gewisser Spieler diese Aktie?
@@ -124,6 +146,16 @@ public class StockPriceProvider implements StockPriceInfo{
         }
         return bankAktien[r].getKurs();
     }
-
-
+    
+    //Timer für die Änderung der Aktienwerte:
+    public void clock(){
+    }
+    
+    //Überschriebene Methode der einzelen Banken:
+    public long changePrice(){return 0;}
+    
 }
+    
+
+
+
