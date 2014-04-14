@@ -7,11 +7,13 @@ public class Share {
     private String Name;
 
     private long Wert; //Kurs!!
+    private final long StartPrice;
 
     //Initialisierung der Klasse beim Start:
     public Share(String Name, long Startwert) {
         this.Wert = Startwert;
         this.Name = Name;
+        this.StartPrice = Startwert;
     }
 
     //To-String
@@ -62,5 +64,9 @@ public class Share {
 
     public void setName(String name) {
         this.Name = name;
+    }
+    
+    public long getStartPrice(){
+    return this.StartPrice;
     }
 }

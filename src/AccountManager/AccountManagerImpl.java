@@ -85,6 +85,7 @@ public class AccountManagerImpl implements AccountManager {
         gesamt = gesamt + searchSpieler(x).getDepotValue();
         gesamt = gesamt + searchSpieler(x).getCash();
         String ausgabe = searchSpieler(x).getName() + "-Vermögen: " + gesamt;
+        
         return ausgabe;
     }
 

@@ -6,9 +6,8 @@ package Main;
 
 import AccountManager.AccountManagerImpl;
 import AccountManager.AccountManager;
-import Bank.StockPriceInfo;
-import Bank.StockPriceProvider;
-import Gui.StockPriceViewer;
+import Bank.*;
+
 
 public class Boerse3 {
 
@@ -16,10 +15,11 @@ public class Boerse3 {
 
         //Anlegen der Instanzen die genutzt werden:
         AccountManager AM = new AccountManagerImpl();
-        StockPriceInfo SPI = new StockPriceProvider();
-        //Ausgabefenster und Timerdemo:
-        StockPriceViewer viewerDemo = new StockPriceViewer();
-        viewerDemo.start();
+//        //Allgemeine Banken anlegen:
+//        StockPriceInfo SPI = new StockPriceProvider();
+        //Constante Bank anlegen:
+        StockPriceInfo SPI = new StockPriceProviderRandom();
+               
 
         
         //Aufruf der Ausgabe in Schleife "while": Ausgabe der Aktien und der Spieler:
@@ -33,8 +33,13 @@ public class Boerse3 {
         SPI.creatShare("MAN", -2);
         //Alle Aktien aus dem Array wiedergeben:
         System.out.println(SPI.showShares());
-
-        //Neue Player anlegen im Array von AMIMPL
+        
+        SPI.startUpdate();
+        System.out.println(SPI.showShares());
+        
+        
+        
+        //Neue Player anlegen im Array von AccountManagerImpl
         AM.newPlayer("Alex", 1000);
         AM.newPlayer("Tim", 1000);
         //Gleichen Player erneut anlegen: Fehlertest:

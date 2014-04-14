@@ -1,25 +1,30 @@
 package Bank;
 
+//Hab hier das Random umgebaut:
+
 //Erhöht oder verringert die Preise der Aktien zufällig im Wertebereich:
+
+import Core.Share;
 
 public class StockPriceProviderRandom extends StockPriceProvider {
     
+    public StockPriceProviderRandom(){}
+    
     //Zufallszahl generieren für Aktienwerte:
-    private long random(double low, double high){
-        double random1 = Math.random() * (high - low) + low;
-        long random2 = (long) random1;
-        return random2;
-    }
-    
+    //Umgebaut nach Int!
     @Override
-    public long changePrice(){
+    public void changePrice(){
         
-    //Begrenzungen der Zufallszahlen:
-    double low = 0;
-    double high = 100;
-    
-    return(random(low,high));
+        for(int i = 0; i<this.bankAktien.length;i++){
+            bankAktien[i].setKurs(randomNumber());
+        }
     }
-    
-    
-}
+        
+    public int randomNumber(){
+        int high = 100;
+        int low = 0;
+        int random1 = (int)(Math.random() * (high - low) + low);
+        return random1;
+    }
+}   
+

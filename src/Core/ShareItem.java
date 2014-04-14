@@ -50,10 +50,6 @@ public class ShareItem extends Asset {
 
         this.aktie.setKurs(neuWert); 
     }
-    
-    
-    
-    
 
     @Override
     public String toString() {

@@ -4,9 +4,15 @@ package Bank;
 
 public class StockPriceProviderConst extends StockPriceProvider  {
     
-    @Override
-    public long changePrice(){
     
+    public StockPriceProviderConst(){}
+    
+    //Überschreiben der Methode der Vererbung:
+    @Override
+    public void changePrice(){
+        for(int i = 0; i<this.bankAktien.length;i++){
+            bankAktien[i].setKurs(bankAktien[i].getStartPrice());
+        }
     }
     
 }

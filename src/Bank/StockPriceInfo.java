@@ -1,6 +1,6 @@
 package Bank;
 
-//Info ist das Interface zur einzelnen Bank
+//Info ist das Interface zur Bank
 
 import Core.Share;
 
@@ -23,8 +23,10 @@ public interface StockPriceInfo {
     public long getCurrentShareRate(String ShareName);
    
     //Starten des Updates aller Aktien der Spieler (UpdateMethdoe)
-    public void startUpdate(String bank);   
+    public void startUpdate();   
     
     //Aktie im Array Suchen
     public Share searchShare(String lookafter);
+    
+    
 }

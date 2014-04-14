@@ -1,23 +1,28 @@
 package Bank;
 
+//Update einer einzelnen Aktie:
+//Schauen ob bei einem Spieler eine Aktien gelistet ist:
+
+
 //Der Provider ist die eig. Bank als Klasse:
-
-
 import Core.*;
 import java.util.Arrays;
 import java.util.Timer;
 import Exceptions.StockPriceProviderException;
+import Gui.StockPriceViewer;
 
+public class StockPriceProvider implements StockPriceInfo {
 
+    protected Share[] bankAktien = null;
 
-public class StockPriceProvider implements StockPriceInfo{
-
-    private Share[] bankAktien = null;
+    //Hier kommt die Grafische Ausgabe und der Timer mit Ticker:
     private static final int TICK_PERIOD = 1000;
-    private Timer ticker;
-    
-    
-    public StockPriceProvider(){}
+    private static Timer ticker;
+    StockPriceViewer screen = new StockPriceViewer(bankAktien);
+
+    public StockPriceProvider() {
+        screen.start(bankAktien);
+    }
 
     //Neue Aktien anlegen
     @Override
@@ -66,14 +71,15 @@ public class StockPriceProvider implements StockPriceInfo{
 
     @Override
     public String showShares() {
+        screen.update(bankAktien);
         return Arrays.toString(bankAktien);
     }
 
-    
     //Eine Aktie aus dem Array suchen und wenn vorhanden ausgeben (Kauf von Aktien)
     //Wird im Interface nicht angezeigt!
-    public Share searchShare(String lookafter){
-    int r = 0;
+    @Override
+    public Share searchShare(String lookafter) {
+        int r = 0;
 
         //Fehler bei nichtvorhandener Aktie abfangen
         try {
@@ -83,43 +89,39 @@ public class StockPriceProvider implements StockPriceInfo{
                 }
                 r++;
             }
-            
-              
+
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Bitte geben Sie eine Gültige Aktie an. Ihre Aktie ist nicht vorhanden! " + e.toString());
         }
         return bankAktien[r];
     }
-    
-    //Einzele Aktie Updaten:
-    
+
+    //Einzele Aktie Updaten:  //Noch zu implementieren!!  
     protected void updateShareRate(Share share, long newPrice) {
-        
+
     }
 
     //Alle Aktien Updaten: Schleife durch das Array(Wird nicht im Interface angezeigt)    
-    protected void updateShareRates(String bank)throws StockPriceProviderException {
-        int r = 0;
-            while (bankAktien[r] != null) {
-                if(bank.equals("Const")){}
-                if(bank.equals("Random")){}
-                else{throw new StockPriceProviderException("Keine Gültige Bank angegeben. Bitte geben Sie ein an.");}
-                r++;
+    protected void updateShareRates() throws StockPriceProviderException {
+        try {
+            for (int z = 0; z < bankAktien.length; z++) {
+                changePrice();
             }
+        } catch (NullPointerException e) {
+            System.out.println("Es können keine Aktien geupdatet werden, da keine Vorhanden sind" + e.toString());
+        }
 
-            
     }
 
-    //Starten des Updates aller Aktien der Spieler (UpdateMethdoe)
+    //Starten des Updates aller Aktien
     @Override
-    public void startUpdate(String bank) { 
-       try{
-        updateShareRates(bank);}
-       catch(StockPriceProviderException r){
-       System.out.println("Fehler beim Versuch die Aktien zu Updaten."+ r.toString());
-       }
-        //2.Update die Spieler.
-    }
+    public void startUpdate() {
+        try {
+            updateShareRates();
+        } catch (StockPriceProviderException r) {
+            System.out.println("Fehler beim Versuch die Aktien zu Updaten." + r.toString());
+        }
+        }
 
     //Hat ein gewisser Spieler diese Aktie?
     @Override
@@ -127,11 +129,11 @@ public class StockPriceProvider implements StockPriceInfo{
         boolean kk = true;
         return kk;
     }
-    
+
     //Aktuellen Kurs einer Aktie auslesen
     @Override
     public long getCurrentShareRate(String ShareName) {
-       int r = 0;
+        int r = 0;
         try {
             while (bankAktien[r] != null) {
                 if (bankAktien[r].getName().equals(ShareName)) {
@@ -139,23 +141,16 @@ public class StockPriceProvider implements StockPriceInfo{
                 }
                 r++;
             }
-            
-              
+
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Bitte geben Sie eine Gültige Aktie an. Ihre Aktie ist nicht vorhanden! " + e.toString());
         }
         return bankAktien[r].getKurs();
     }
-    
-    //Timer für die Änderung der Aktienwerte:
-    public void clock(){
-    }
-    
+
     //Überschriebene Methode der einzelen Banken:
-    public long changePrice(){return 0;}
-    
+    public void changePrice() {
+    }
+;
+
 }
-    
-
-
-
